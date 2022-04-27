@@ -1,4 +1,4 @@
 #!/bin/bash
 sudo git pull
 sudo npm i
-sudo node index.js
+sudo pm2 start index.js
