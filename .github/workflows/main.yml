@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - uses: actions/checkout@v2
+    
       - name: EC2 test
         env:
             PRIVATE_KEY: ${{ secrets.PRIVATE_KEY  }}
@@ -19,11 +21,11 @@ jobs:
           echo "$PRIVATE_KEY" > private_key && 
           chmod 600 private_key
           
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
-          
+          ssh -o StrictHostKeyChecking=off -i private_key ${USER_NAME}@${HOSTNAME} '
             cd /data/diwos-backend &&
             sudo git checkout main &&
             sudo git fetch --all &&
             sudo git reset --hard origin/main &&
             sudo git pull origin main &&
             sudo sh update.sh
+          '
