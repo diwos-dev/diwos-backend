@@ -6,9 +6,9 @@ const md5 = require('md5')
 const PORT = 1337
 
 app.get('/', (req, res) => {
-    var ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress 
+    let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress 
     console.log(ip)
-    res.end()
+    res.send(ip)
 })
 
 app.get('/*', (req, res) => {
