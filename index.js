@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const app = express()
 const path = require('path')
 const md5 = require('md5')
-const PORT = 1337
+const PORT = 80
 
 app.get('/', (req, res) => {
     let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress 
