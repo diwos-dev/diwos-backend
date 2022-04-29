@@ -7,6 +7,8 @@ const PORT = 1337
 
 const routes = require('./routes')
 
+const ws = require('webSockets')
+
 app.use(routes);
 
 app.get('/', (req, res) => {
