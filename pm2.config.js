@@ -3,6 +3,7 @@
 module.exports = {
   apps : [{
     name   : "diwos-backend",
+	namespace : "diwos-backend",
     script : "npm",
 	args : "start",
 	autorestart : false,
