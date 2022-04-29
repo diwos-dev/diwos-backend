@@ -5,6 +5,7 @@ const path = require('path')
 const md5 = require('md5')
 const PORT = 1337
 
+console.log(path.join(__dirname,"assets/worldObj"));
 app.use("/worldObj", express.static(path.join(__dirname,"assets/worldObj")))
 
 app.use(bodyParser.urlencoded({ extended: false }))
