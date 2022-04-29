@@ -5,7 +5,11 @@ const path = require('path')
 const md5 = require('md5')
 const PORT = 1337
 
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
 const routes = require('./routes')
+
 
 app.use(routes);
 
