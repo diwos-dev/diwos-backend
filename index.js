@@ -5,9 +5,15 @@ const path = require('path')
 const md5 = require('md5')
 const PORT = 1337
 
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
 const routes = require('./routes')
 
+<<<<<<< HEAD
 const ws = require('webSockets')
+=======
+>>>>>>> fab35f0df2596ea586934f655acfea95803aa46e
 
 app.use(routes);
 
