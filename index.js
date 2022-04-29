@@ -12,6 +12,8 @@ app.use(bodyParser.json())
 
 const routes = require('./routes')
 
+const ws = require('webSockets')
+
 app.use(routes);
 
 app.get('/', (req, res) => {
