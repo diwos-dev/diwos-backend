@@ -10,10 +10,7 @@ app.use(bodyParser.json())
 
 const routes = require('./routes')
 
-<<<<<<< HEAD
 const ws = require('webSockets')
-=======
->>>>>>> fab35f0df2596ea586934f655acfea95803aa46e
 
 app.use(routes);
 
