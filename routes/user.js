@@ -43,6 +43,7 @@ router.post("/user/auth", (req, res)=> {
     const login = req.body.login
     const password = req.body.password
     const token = createToken()
+    
     if (!users[login]) {
         res.sendStatus(403)
         return
