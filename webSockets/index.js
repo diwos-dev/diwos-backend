@@ -2,6 +2,8 @@
 const WebSocket = require('ws');
 const wss = new WebSocket.Server({ port: 13372 });
 const wsMethods = require('./getWsMethods');
+const users = require('models/users');
+const world = require('models/world');
 
 const clients = new Map();
 
@@ -21,10 +23,10 @@ wss.on('connection', (ws) => {
 
     ws.on('message', (messageAsString) => {
 
-        let message = '';
+        let request = {};
 
         try {
-            message = JSON.parse(messageAsString);
+            request = JSON.parse(messageAsString);
 
         } catch (e) {
             console.error('WS JSON parse error', messageAsString, e);
@@ -32,25 +34,55 @@ wss.on('connection', (ws) => {
             return;
         }
 
-        if (!message.method) {
+        if (!request.method) {
             ws.send('{"error": "No method specified"}');
             return;
         }
 
-        if (!wsMethods[message.method]) {
+        if (!wsMethods[request.method]) {
             ws.send('{"error": "Unknown method"}');
             return;
         }
 
         const metadata = clients.get(ws);
         let wsMethodResult = {};
+        let user = {};
+
+        if (request.login) {
+            if (!users[request.login]) {
+                ws.send('{"error": "Unknown user"}');
+                return;
+            }
+    
+            if (!users[request.login].token == request.token) {
+                ws.send('{"error": "Wrong token"}');
+                return;
+            }
+
+            user = users[request.login];
+            metadata.user = user;
+
+        } else {
+
+            user = {
+                anonumous: true,
+            };
+            users[metadata.id] = user;
+            metadata.user = user;
+
+        }
+
+
+        if (!world[user.mainObj]) {
+            ws.send('{"error": "User has no main object"}');
+        }
 
         try {
-            wsMethodResult = wsMethods[message.method](ws, message, metadata);
+            wsMethodResult = wsMethods[request.method](ws, request, metadata);
 
-        } catch (e) {
-            console.error('WS method error', message.method, e);
-            ws.send('{"error": "Method error"}');
+        } catch (error) {
+            console.error('WS method error', request.method, error);
+            ws.send('{"error": "Method error ' + JSON.stringify(error.message) + ' "}');
             return;
         }
 

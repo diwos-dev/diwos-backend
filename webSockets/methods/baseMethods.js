@@ -2,7 +2,7 @@
 function ping(ws, message, metadata) {
     const wsMethodResult = {};
     wsMethodResult.message = {
-        data: metadata
+        data: 'pong'
     }
     wsMethodResult.needResponse = true;
 
