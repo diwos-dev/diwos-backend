@@ -21,8 +21,17 @@ function fryMethod(rawMethod, rawMethodName) {
             rawMethodResult.message = {};
         }
 
-        rawMethodResult.message.method = rawMethodName;
-        rawMethodResult.message.date = message.date;
+        if (!rawMethodResult.message.method) {
+            rawMethodResult.message.method = rawMethodName;
+        }
+
+        if (!rawMethodResult.message.date) {
+            if (!message.date) {
+                rawMethodResult.message.date = new Date();
+            } else {
+                rawMethodResult.message.date = message.date;
+            }
+        }
 
         console.log(rawMethodName, rawMethodResult);
 
