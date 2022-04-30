@@ -11,7 +11,19 @@ function getWorld(ws, message, metadata) {
     return wsMethodResult;
 }
 
+function forceUpdateWorld(ws, message, metadata) {
+    world = message.world;
+    const wsMethodResult = {};
+    wsMethodResult.message = {
+        data: world
+    }
+    wsMethodResult.needBroadcast = true;
+
+    return wsMethodResult;
+}
+
 module.exports = {
-    getWorld
+    getWorld,
+    forceUpdateWorld
 
 }
