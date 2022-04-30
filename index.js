@@ -7,6 +7,7 @@ const PORT = 1337
 
 console.log(path.join(__dirname,"assets/worldObj"));
 app.use("/worldObj", express.static(path.join(__dirname,"assets/worldObj")))
+app.use("/img", express.static(path.join(__dirname,"assets/images")))
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
