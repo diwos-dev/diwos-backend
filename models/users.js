@@ -3,7 +3,8 @@ module.exports = {
 
     'Egor': {
         admin: true,
-        password : 'qwe'
+        password : 'qwe',
+        token : ""
     }
 
 }
