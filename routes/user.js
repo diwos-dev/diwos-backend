@@ -46,7 +46,10 @@ router.post("/user/auth", (req, res)=> {
 
     if (users[login] && users[login].password == password) {
         users[login].token = token
-        res.status(200).send(token)
+        res.status(200).send({
+            token : token,
+            isAdmin : users[login].admin
+        })
     } else {
         res.sendStatus(403)
     }
