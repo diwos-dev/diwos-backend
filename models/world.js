@@ -6,7 +6,7 @@ module.exports = {
         obj_x: 17,
         obj_y: 14,
         obj_size: 50,
-        obj_pic: 'http://server.diwos.ru/images/cat.gif'
+        obj_pic: 'http://server.diwos.ru/worldObj/three.png'
     }
 
 }
