@@ -43,8 +43,11 @@ router.post("/user/auth", (req, res)=> {
     const login = req.body.login
     const password = req.body.password
     const token = createToken()
-
-    if (users[login] && users[login].password == password) {
+    if (!users[login]) {
+        res.sendStatus(403)
+        return
+    }
+    if (users[login].password == password) {
         users[login].token = token
         res.status(200).send({
             token : token,
