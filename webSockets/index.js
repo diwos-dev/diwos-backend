@@ -44,21 +44,34 @@ wss.on('connection', (ws) => {
             return;
         }
 
-        if (!users[request.login]) {
-            ws.send('{"error": "Unknown user"}');
-            return;
-        }
-
-        if (!users[request.login].token == request.token) {
-            ws.send('{"error": "Wrong token"}');
-            return;
-        }
-
         const metadata = clients.get(ws);
         let wsMethodResult = {};
+        let user = {};
 
-        const user = users[request.login];
-        metadata.user = user;
+        if (request.login) {
+            if (!users[request.login]) {
+                ws.send('{"error": "Unknown user"}');
+                return;
+            }
+    
+            if (!users[request.login].token == request.token) {
+                ws.send('{"error": "Wrong token"}');
+                return;
+            }
+
+            user = users[request.login];
+            metadata.user = user;
+
+        } else {
+
+            user = {
+                anonumous: true,
+            };
+            users[metadata.id] = user;
+            metadata.user = user;
+
+        }
+
 
         if (!world[user.mainObj]) {
             ws.send('{"error": "User has no main object"}');
