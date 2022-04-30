@@ -27,15 +27,23 @@ router.get('/user', (req, res) => {
 router.post('/user/registration', (req, res) => {
     const login = req.body.login
     const password = req.body.password
+    const token = createToken()
+
+    console.log("Попытка регистрации :", `Логин : ${login}`, `Пароль ${password}`);
 
     if (users[login]) {
         res.sendStatus(403)
     } else {
         users[login] = {
             admin: false,
-            password : password
+            password : password,
+            token : token
         }
-        res.status(200).send(users[login]);
+        res.status(200).send({
+            login : login,
+            token : token,
+            isAdmin : false
+        });
     }
 })
 
@@ -43,6 +51,8 @@ router.post("/user/auth", (req, res)=> {
     const login = req.body.login
     const password = req.body.password
     const token = createToken()
+
+    console.log("Попытка авторизации :", `Логин : ${login}`, `Пароль ${password}`);
     
     if (!users[login]) {
         res.sendStatus(403)
