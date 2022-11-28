@@ -6,7 +6,7 @@ module.exports = {
         objX: 17,
         objY: 14,
         objSize: 50,
-        objPic: 'http://server.diwos.ru/worldObj/three.png'
+        objPic: 'http://localhost:1337/worldObj/three.png'
     }
 
 }

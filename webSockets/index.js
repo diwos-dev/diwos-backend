@@ -1,9 +1,10 @@
 
 const WebSocket = require('ws');
-const wss = new WebSocket.Server({ port: 13372 });
 const wsMethods = require('./getWsMethods');
 const users = require('models/users');
 const world = require('models/world');
+const wssPort = 13372;
+const wss = new WebSocket.Server({ port: wssPort });
 
 const clients = new Map();
 
@@ -106,4 +107,4 @@ wss.on('connection', (ws) => {
 
 });
 
-console.log("wss up");
+console.log("wss up", wssPort);
